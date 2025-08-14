@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
         const settingsQuery = `*[_type == "contactSettings"][0]{recipientEmail,email,password}`;
         const settings = await sanityClient.fetch(settingsQuery);
 
-        const recipientEmail = settings?.recipientEmail || "info.learn.edwin@gmail.com";
+        const recipientEmail = settings?.recipientEmail || "shout@breathe-spa.com";
         const appEmail = settings?.email || process.env.EMAIL_USER;
         const appPassword = settings?.password || process.env.EMAIL_PASS;
 
