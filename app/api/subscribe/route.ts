@@ -143,9 +143,9 @@ export async function POST(request: NextRequest) {
 
         const settingsQuery = `*[_type == "contactSettings"][0]{recipientEmail,email,password}`;
         const settings = await sanityClient.fetch(settingsQuery);
-        const appEmail = process.env.EMAIL_USER;
-        const appPassword = process.env.EMAIL_PASS;
-        const adminEmail = settings?.recipientEmail;
+        const appEmail = settings?.email || process.env.EMAIL_USER;
+        const appPassword = settings?.password || process.env.EMAIL_PASS;
+        const adminEmail = settings?.recipientEmail || "shout@breathe-spa.com";
 
         if (!appEmail || !appPassword) {
             console.error("Email credentials (EMAIL_USER, EMAIL_PASS) are missing in environment variables.");
