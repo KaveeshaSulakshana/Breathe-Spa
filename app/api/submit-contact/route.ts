@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
         const phone = formData.get("phone") as string;
         const message = formData.get("message") as string;
         const privacyPolicy = formData.get("privacyPolicy") === "true";
-        const submittedAt = formData.get("submittedAt") as string;
+        //const submittedAt = formData.get("submittedAt") as string;
 
         if (!firstName || !lastName || !email || !message) {
             console.error("Missing form fields:", {firstName, lastName, email, message});
@@ -128,15 +128,15 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        const formattedSubmittedAt = new Date(submittedAt).toLocaleString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        });
+        // const formattedSubmittedAt = new Date(submittedAt).toLocaleString('en-US', {
+        //     year: 'numeric',
+        //     month: 'long',
+        //     day: 'numeric',
+        //     hour: '2-digit',
+        //     minute: '2-digit',
+        //     second: '2-digit',
+        //     hour12: true
+        // });
 
         const mailOptions: nodemailer.SendMailOptions = {
             from: appEmail,
@@ -148,7 +148,6 @@ export async function POST(request: NextRequest) {
         Phone: ${phone}
         Message: ${message}
         Privacy Policy Accepted: ${privacyPolicy ? 'Yes' : 'No'}
-        Submitted At: ${formattedSubmittedAt}
       `,
             html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -174,10 +173,6 @@ export async function POST(request: NextRequest) {
                 <tr>
                     <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Privacy Policy Accepted:</strong></td>
                     <td style="padding: 8px; border: 1px solid #ddd;">${privacyPolicy ? 'Yes' : 'No'}</td>
-                </tr>
-                <tr>
-                    <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Submitted At:</strong></td>
-                    <td style="padding: 8px; border: 1px solid #ddd;">${formattedSubmittedAt}</td>
                 </tr>
             </table>
             <p style="font-size: 0.9em; color: #666;">This email was sent automatically from your website's contact form.</p>
