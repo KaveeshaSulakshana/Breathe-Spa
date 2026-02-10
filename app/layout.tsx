@@ -4,6 +4,9 @@ import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { getCategories, siteDetails} from "@/sanity/libs/api";
+
+import parse from 'html-react-parser';
+
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -35,10 +38,18 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      
+    <head>
+        {site?.headerScripts && parse(site.headerScripts)}
+    </head>
+      
       <body className={`${scheherazadeNew.variable} ${inriaSans.variable}`}>
         <Header site={site} />
           {children}
         <Footer site={site} service={service} />
+
+        {site?.footerScripts && parse(site.footerScripts)}
+        
       </body>
     </html>
   );
